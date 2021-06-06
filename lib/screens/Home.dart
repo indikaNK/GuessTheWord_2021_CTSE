@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:guesstheword/indika/splash.dart';
+import 'package:guesstheword/screens/splash.dart';
 
 class HOME extends StatelessWidget {
   @override

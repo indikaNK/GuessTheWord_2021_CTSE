@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:guesstheword/indika/splash.dart';
-import 'indika/Home.dart';
-import 'indika/demo.dart';
+import 'package:guesstheword/screens/splash.dart';
+import 'screens/Home.dart';
+import 'screens/demo.dart';
 
 void main() {
   runApp(MyApp());
