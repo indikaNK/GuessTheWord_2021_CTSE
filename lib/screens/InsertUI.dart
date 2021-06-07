@@ -1,134 +1,245 @@
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class InsertUI extends StatelessWidget {
+class InsertUI extends StatefulWidget {
+  @override
+  _InsertUIState createState() => _InsertUIState();
+}
+
+class _InsertUIState extends State<InsertUI> {
+  String questions;
+  String answer1;
+  String answer2;
+  String answer3;
+  String answer4;
+  String correctAnswer;
+
+  void getQuestion(String question) {
+    setState(() {
+      questions = question;
+    });
+  }
+
+  void getAnswer1(String ans) {
+    setState(() {
+      answer1 = ans;
+    });
+  }
+
+  void getAnswer2(String ans) {
+    setState(() {
+      answer2 = ans;
+    });
+  }
+
+  void getAnswer3(String ans) {
+    setState(() {
+      answer3 = ans;
+    });
+  }
+
+  void getAnswer4(String ans) {
+    setState(() {
+      answer4 = ans;
+    });
+  }
+
+  void getCorrectAnswer(String ans) {
+    setState(() {
+      correctAnswer = ans;
+    });
+  }
+
+  bool createQuestion() {
+    var res = true;
+    try {
+      //generate qid
+      var getRandom = new Random();
+      var qID = 100000 + getRandom.nextInt(999999 - 100000);
+
+      var question = this.questions;
+      var answers = [this.answer1, this.answer2, this.answer3, this.answer4];
+      var correctAnswer = this.correctAnswer;
+
+      DocumentReference documentReference =
+          FirebaseFirestore.instance.collection("q_n_a").doc(qID.toString());
+
+      // create a map to map the data
+      Map<String, dynamic> questionMap = {
+        'qID': qID,
+        'questions': question,
+        'answers': answers,
+        'correct_answer': correctAnswer
+      };
+      //send the mapped data
+      documentReference
+          .set(questionMap)
+          .whenComplete(() => print("$qID Created"));
+    } catch (e) {
+      print(e);
+      res = false;
+    }
+    return res;
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text("Create Question"),
-        backgroundColor: Colors.deepPurple,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/bodybg.jpg'),
+          fit: BoxFit.cover,
+        ),
       ),
-      body: new Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/bodybg.jpg'),
-                fit: BoxFit.cover,
-              ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text("Create Question"),
+          backgroundColor: Colors.deepPurple,
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.all(15.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  margin: EdgeInsets.all(15.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                      ),
+                      contentPadding: EdgeInsets.only(left: 25.0),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: 'Question',
+                      hintText: 'Ex: He ____ to school now.',
+                    ),
+                    onChanged: (txt) {
+                      getQuestion(txt);
+                    },
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(15.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                      contentPadding: EdgeInsets.only(left: 25.0),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: 'Answer 1',
+                      hintText: 'Ex: is going',
+                    ),
+                    onChanged: (txt) {
+                      getAnswer1(txt);
+                    },
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(15.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                      contentPadding: EdgeInsets.only(left: 25.0),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: 'Answer 2',
+                      hintText: 'Ex: is going',
+                    ),
+                    onChanged: (txt) {
+                      getAnswer2(txt);
+                    },
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(15.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                      contentPadding: EdgeInsets.only(left: 25.0),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: 'Answer 3',
+                      hintText: 'Ex: is going',
+                    ),
+                    onChanged: (txt) {
+                      getAnswer3(txt);
+                    },
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(15.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                      contentPadding: EdgeInsets.only(left: 25.0),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: 'Answer 4',
+                      hintText: 'Ex: is going',
+                    ),
+                    onChanged: (txt) {
+                      getAnswer4(txt);
+                    },
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(15.0),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                      contentPadding: EdgeInsets.only(left: 25.0),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: 'Correct Answer',
+                      hintText: 'Ex: is going',
+                    ),
+                    onChanged: (txt) {
+                      getCorrectAnswer(txt);
+                    },
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(15.0),
+                  child: ElevatedButton(
+                    style: elevatedButtonStyle,
+                    onPressed: () {
+                      var res = createQuestion();
+                      SnackBar snackBar;
+                      if (res) {
+                        snackBar = SnackBar(
+                            content: Text('Successfully created!'),
+                            backgroundColor: Colors.green);
+                      } else {
+                        snackBar = SnackBar(
+                            content: Text('Somthing went wrong!'),
+                            backgroundColor: Colors.red);
+                      }
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                    child: Text('CREATE'),
+                  ),
+                )
+              ],
             ),
           ),
-          SingleChildScrollView(
-            child: Container(
-              margin: EdgeInsets.all(15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25)),
-                        contentPadding: EdgeInsets.only(left: 25.0),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: 'Question',
-                        hintText: 'Ex: He ____ to school now.',
-                      ),
-                      onChanged: null,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25)),
-                        contentPadding: EdgeInsets.only(left: 25.0),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: 'Answer 1',
-                        hintText: 'Ex: is going',
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25)),
-                        contentPadding: EdgeInsets.only(left: 25.0),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: 'Answer 2',
-                        hintText: 'Ex: is going',
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25)),
-                        contentPadding: EdgeInsets.only(left: 25.0),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: 'Answer 3',
-                        hintText: 'Ex: is going',
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25)),
-                        contentPadding: EdgeInsets.only(left: 25.0),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: 'Answer 4',
-                        hintText: 'Ex: is going',
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25)),
-                        contentPadding: EdgeInsets.only(left: 25.0),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: 'Correct Answer',
-                        hintText: 'Ex: is going',
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(15.0),
-                    child: ElevatedButton(
-                      style: elevatedButtonStyle,
-                      onPressed: () {},
-                      child: Text('ADD'),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
+  //button style
   final ButtonStyle elevatedButtonStyle = ElevatedButton.styleFrom(
     primary: Colors.white54,
     minimumSize: Size(150, 45),
