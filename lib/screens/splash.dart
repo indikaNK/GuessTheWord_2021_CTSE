@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'demo.dart';
+import 'InsertUI.dart';
 
 class splashscreen extends StatefulWidget {
   @override
@@ -15,7 +15,7 @@ class SPlashScreen extends State<splashscreen> {
     super.initState();
     Timer(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => Demo(),
+        builder: (context) => InsertUI(),
       ));
     });
   }
