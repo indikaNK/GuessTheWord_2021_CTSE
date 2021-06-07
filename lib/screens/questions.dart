@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:guesstheword/customButton/custom_raisedButton.dart';
+import 'package:guesstheword/utilities/customButton/custom_raisedButton.dart';
 import 'package:guesstheword/screens/splash.dart';
 
-import 'insertForm.dart';
 
 class QuestionList extends StatelessWidget {
   @override
@@ -50,7 +49,7 @@ class QuestionList extends StatelessWidget {
                           print('Add new questions pressed');
                           //     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> InsertQuestion()));
                         },
-                        color: Colors.purple[300],
+                        color: Colors.white54,
                         height: 50,
                         width: 350,
                         fontColor: Colors.white,

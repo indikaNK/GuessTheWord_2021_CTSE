@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:guesstheword/customButton/custom_raisedButton.dart';
+import 'package:guesstheword/utilities/customButton/custom_raisedButton.dart';
 import 'package:guesstheword/screens/questions.dart';
 import 'package:guesstheword/screens/splash.dart';
 
