@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class QuestionsAndAnswerModel {
    int qID;
    String questions;
-   List<String> answers;
+   List<dynamic> answers;
    String correctAnswer;
-   List<String> definitions;
+   List<dynamic> definitions;
 
     QuestionsAndAnswerModel(
       this.qID,
