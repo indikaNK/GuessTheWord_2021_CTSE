@@ -83,7 +83,7 @@ class _PlayScreenState extends State<PlayScreen> {
             ),
             Container(
               padding: EdgeInsets.all(15.0),
-              child: _questionIndex < 4?
+              child: _questionIndex < questionList.length?
               Quiz(
                 answerQuestion: _answerQuestion,
                 questions: questionList,
