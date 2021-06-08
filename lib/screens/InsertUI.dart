@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:guesstheword/models/QuestionsAndAnswersModel.dart';
 import 'package:guesstheword/api/question_n_answer_api.dart';
+import 'package:guesstheword/utilities/CustomTextField.dart';
+import 'package:guesstheword/utilities/CustomDefinitionTextField.dart';
 
 class InsertUI extends StatefulWidget {
   @override
@@ -16,6 +18,10 @@ class _InsertUIState extends State<InsertUI> {
   String answer3;
   String answer4;
   String correctAnswer;
+  String definition1;
+  String definition2;
+  String definition3;
+  String definition4;
 
   void getQuestion(String question) {
     setState(() {
@@ -53,6 +59,30 @@ class _InsertUIState extends State<InsertUI> {
     });
   }
 
+  void getDefinition1(String ans) {
+    setState(() {
+      definition1 = ans;
+    });
+  }
+
+  void getDefinition2(String ans) {
+    setState(() {
+      definition2 = ans;
+    });
+  }
+
+  void getDefinition3(String ans) {
+    setState(() {
+      definition3 = ans;
+    });
+  }
+
+  void getDefinition4(String ans) {
+    setState(() {
+      definition4 = ans;
+    });
+  }
+
   bool createQuestion() {
     var res = true;
 
@@ -62,7 +92,7 @@ class _InsertUIState extends State<InsertUI> {
 
     var answers = [this.answer1, this.answer2, this.answer3, this.answer4];
 
-    var definitions = ['def1', 'def2', 'def3', 'def4'];
+    var definitions = [this.definition1, this.definition2, this.definition3, this.definition4];
 
     try {
       QuestionsAndAnswerModel question = new QuestionsAndAnswerModel(
@@ -104,109 +134,16 @@ class _InsertUIState extends State<InsertUI> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  margin: EdgeInsets.all(15.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      contentPadding: EdgeInsets.only(left: 25.0),
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: 'Question',
-                      hintText: 'Ex: He ____ to school now.',
-                    ),
-                    onChanged: (txt) {
-                      getQuestion(txt);
-                    },
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(15.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                      contentPadding: EdgeInsets.only(left: 25.0),
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: 'Answer 1',
-                      hintText: 'Ex: is going',
-                    ),
-                    onChanged: (txt) {
-                      getAnswer1(txt);
-                    },
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(15.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                      contentPadding: EdgeInsets.only(left: 25.0),
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: 'Answer 2',
-                      hintText: 'Ex: is going',
-                    ),
-                    onChanged: (txt) {
-                      getAnswer2(txt);
-                    },
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(15.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                      contentPadding: EdgeInsets.only(left: 25.0),
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: 'Answer 3',
-                      hintText: 'Ex: is going',
-                    ),
-                    onChanged: (txt) {
-                      getAnswer3(txt);
-                    },
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(15.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                      contentPadding: EdgeInsets.only(left: 25.0),
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: 'Answer 4',
-                      hintText: 'Ex: is going',
-                    ),
-                    onChanged: (txt) {
-                      getAnswer4(txt);
-                    },
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(15.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                      contentPadding: EdgeInsets.only(left: 25.0),
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: 'Correct Answer',
-                      hintText: 'Ex: is going',
-                    ),
-                    onChanged: (txt) {
-                      getCorrectAnswer(txt);
-                    },
-                  ),
-                ),
+                CustomTextField('Question', 'Ex: He ____ to school now.', getQuestion),
+                CustomTextField('Answer 1', 'Ex: is going', getAnswer1),
+                CustomDefinitionTextField('Definition', 'Type relevent definition.', getDefinition1),
+                CustomTextField('Answer 2', 'Ex: is going', getAnswer2),
+                CustomDefinitionTextField('Definition', 'Type relevent definition.', getDefinition2),
+                CustomTextField('Answer 3', 'Ex: is going', getAnswer3),
+                CustomDefinitionTextField('Definition', 'Type relevent definition.', getDefinition3),
+                CustomTextField('Answer 4', 'Ex: is going', getAnswer4),
+                CustomDefinitionTextField('Definition', 'Type relevent definition.', getDefinition4),
+                CustomTextField('Correct Answer', 'Ex: is going', getCorrectAnswer),
                 Container(
                   margin: EdgeInsets.all(15.0),
                   child: ElevatedButton(
