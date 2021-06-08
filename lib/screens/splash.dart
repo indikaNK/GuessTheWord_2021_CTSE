@@ -31,31 +31,38 @@ class SPlashScreen extends State<splashscreen> {
                   image: AssetImage('assets/bodybg.jpg'), fit: BoxFit.cover)),
         ),
         Container(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: const EdgeInsets.only(top:100.0),
-            child: Text(
-              "Let's Begin !",
-              style: TextStyle(color: Colors.white , fontSize: 45),
-            ),
-          ),
-        ),
-        Container(
           child: Column(
             children: [
-              Center(
+              Container(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top:200.0),
+                        child: SizedBox(
+                          height: 200,
+                          width: 200,
+                          child: Lottie.asset('assets/rocket1.json'),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
                 child: Padding(
-                  padding: const EdgeInsets.only(top:200.0),
-                  child: SizedBox(
-                    height: 200,
-                    width: 200,
-                    child: Lottie.asset('assets/rocket1.json'),
+                  padding: const EdgeInsets.only(top:20.0),
+                  child: Text(
+                    "Let's Begin !",
+                    style: TextStyle(color: Colors.white , fontSize: 45),
                   ),
                 ),
-              )
+              ),
             ],
           ),
-        )
+        ),
+
       ],
     ));
   }
