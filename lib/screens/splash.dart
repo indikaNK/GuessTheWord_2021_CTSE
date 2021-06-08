@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'InsertUI.dart';
 import 'PlayScreen.dart';
+import 'package:guesstheword/models/QuestionsAndAnswersModel.dart';
+import 'package:guesstheword/api/question_n_answer_api.dart';
 
 class splashscreen extends StatefulWidget {
   @override
@@ -11,12 +13,28 @@ class splashscreen extends StatefulWidget {
 }
 
 class SPlashScreen extends State<splashscreen> {
+
+  List<QuestionsAndAnswerModel> questionList;
+
+  SPlashScreen(){
+    print("game started");
+    getQuestions(updateQuestionList);
+
+  }
+
+  void updateQuestionList(List<QuestionsAndAnswerModel> list) {
+    setState(() {
+      questionList = list;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+
     Timer(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => PlayScreen(),
+        builder: (context) => PlayScreen(questionList),
       ));
     });
   }

@@ -1,33 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:guesstheword/api/question_n_answer_api.dart';
 import 'package:guesstheword/models/QuestionsAndAnswersModel.dart';
 import 'package:guesstheword/screens/quiz.dart';
 import 'package:guesstheword/screens/results.dart';
 
 class PlayScreen extends StatefulWidget {
+  List<QuestionsAndAnswerModel> questionList;
+
+  PlayScreen(this.questionList);
   @override
-  _PlayScreenState createState() => _PlayScreenState();
+  _PlayScreenState createState() => _PlayScreenState(questionList);
 }
 
 class _PlayScreenState extends State<PlayScreen> {
   List<QuestionsAndAnswerModel> questionList;
   var _questionIndex = 0;
   var _totalScore = 0;
+  var _selection = [false,false,false,false];
+  var selectedAnswer = '';
 
-  _PlayScreenState(){
-    print("game started");
-
-    getQuestions(updateQuestionList);
-
-  }
-
-  void updateQuestionList(List<QuestionsAndAnswerModel> list) {
-    setState(() {
-      questionList = list;
-    });
-    print('list updated');
-  }
+  _PlayScreenState(this.questionList);
 
   void _answerQuestion(int score) {
     _totalScore += score;
@@ -47,6 +39,30 @@ class _PlayScreenState extends State<PlayScreen> {
     setState(() {
       _questionIndex = 0;
       _totalScore = 0;
+    });
+    resetButtons();
+  }
+
+  void _setButtonSelected(int index) {
+    List<bool> newSelection;
+    if(index==0){newSelection = [true,false,false,false];}
+    else if(index==1){newSelection = [false,true,false,false];}
+    else if(index==2){newSelection = [false,false,true,false];}
+    else {newSelection = [false,false,false,true];}
+    setState(() {
+      _selection = newSelection;
+    });
+  }
+
+  void resetButtons(){
+    setState(() {
+      _selection = [false,false,false,false];
+    });
+  }
+
+  void updateSelectedAnswer(String answer) {
+    setState(() {
+      selectedAnswer = answer;
     });
   }
 
@@ -69,9 +85,16 @@ class _PlayScreenState extends State<PlayScreen> {
               padding: EdgeInsets.all(15.0),
               child: _questionIndex < 4?
               Quiz(
-                  answerQuestion: _answerQuestion,
-                  questions: questionList,
-                  questionIndex: _questionIndex):Results(_totalScore, _restartQuiz),
+                answerQuestion: _answerQuestion,
+                questions: questionList,
+                questionIndex: _questionIndex,
+                selection: _selection,
+                setButtonSelected:_setButtonSelected,
+                selectedAnswer: selectedAnswer,
+                updateSelectedAnswer: updateSelectedAnswer,
+                resetButtons: resetButtons
+              ):Results(_totalScore, _restartQuiz, questionList.length),
+
             )
           ],
         ));
