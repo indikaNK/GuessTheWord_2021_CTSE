@@ -1,7 +1,8 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:guesstheword/models/QuestionsAndAnswersModel.dart';
+import 'package:guesstheword/api/question_n_answer_api.dart';
 
 class InsertUI extends StatefulWidget {
   @override
@@ -54,33 +55,30 @@ class _InsertUIState extends State<InsertUI> {
 
   bool createQuestion() {
     var res = true;
+
+    //generate qid
+    var getRandom = new Random();
+    var qID = 100000 + getRandom.nextInt(999999 - 100000);
+
+    var answers = [this.answer1, this.answer2, this.answer3, this.answer4];
+
+    var definitions = ['def1', 'def2', 'def3', 'def4'];
+
     try {
-      //generate qid
-      var getRandom = new Random();
-      var qID = 100000 + getRandom.nextInt(999999 - 100000);
+      QuestionsAndAnswerModel question = new QuestionsAndAnswerModel(
+        qID,
+        this.questions,
+        answers,
+        this.correctAnswer,
+        definitions,
+      );
 
-      var question = this.questions;
-      var answers = [this.answer1, this.answer2, this.answer3, this.answer4];
-      var correctAnswer = this.correctAnswer;
-
-      DocumentReference documentReference =
-          FirebaseFirestore.instance.collection("q_n_a").doc(qID.toString());
-
-      // create a map to map the data
-      Map<String, dynamic> questionMap = {
-        'qID': qID,
-        'questions': question,
-        'answers': answers,
-        'correct_answer': correctAnswer
-      };
-      //send the mapped data
-      documentReference
-          .set(questionMap)
-          .whenComplete(() => print("$qID Created"));
+      createNewQuestion(question);
     } catch (e) {
       print(e);
       res = false;
     }
+
     return res;
   }
 
@@ -111,7 +109,7 @@ class _InsertUIState extends State<InsertUI> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(25),
                       ),
                       contentPadding: EdgeInsets.only(left: 25.0),
                       filled: true,
