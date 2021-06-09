@@ -21,6 +21,7 @@ class _PlayScreenState extends State<PlayScreen> {
 
   _PlayScreenState(this.questionList);
 
+  // handle results & handle question navigation
   void _answerQuestion(int score) {
     _totalScore += score;
 
@@ -35,6 +36,7 @@ class _PlayScreenState extends State<PlayScreen> {
     }
   }
 
+  //restart quiz
   void _restartQuiz() {
     setState(() {
       _questionIndex = 0;
@@ -43,6 +45,7 @@ class _PlayScreenState extends State<PlayScreen> {
     resetButtons();
   }
 
+  //set button selected
   void _setButtonSelected(int index) {
     List<bool> newSelection;
     if(index==0){newSelection = [true,false,false,false];}
@@ -54,12 +57,14 @@ class _PlayScreenState extends State<PlayScreen> {
     });
   }
 
+  //unselect all buttons
   void resetButtons(){
     setState(() {
       _selection = [false,false,false,false];
     });
   }
 
+  //get selected answer
   void updateSelectedAnswer(String answer) {
     setState(() {
       selectedAnswer = answer;

@@ -83,6 +83,7 @@ class _InsertUIState extends State<InsertUI> {
     });
   }
 
+  //create a new question
   bool createQuestion() {
     var res = true;
 
@@ -90,11 +91,14 @@ class _InsertUIState extends State<InsertUI> {
     var getRandom = new Random();
     var qID = 100000 + getRandom.nextInt(999999 - 100000);
 
+    //answer list
     var answers = [this.answer1, this.answer2, this.answer3, this.answer4];
 
+    //definition list
     var definitions = [this.definition1, this.definition2, this.definition3, this.definition4];
 
     try {
+      //create a new Question and Answer object
       QuestionsAndAnswerModel question = new QuestionsAndAnswerModel(
         qID,
         this.questions,
@@ -103,6 +107,7 @@ class _InsertUIState extends State<InsertUI> {
         definitions,
       );
 
+      //call create api
       createNewQuestion(question);
     } catch (e) {
       print(e);

@@ -8,11 +8,19 @@ class Answer extends StatelessWidget {
   Function setButtonSelected;
   int index;
 
-  Answer(this.updateSelectedAnswer, this.answerText, this.definitionTxt, this.isSelected,
-      this.setButtonSelected, this.index);
+  Answer(
+    this.updateSelectedAnswer,
+    this.answerText,
+    this.definitionTxt,
+    this.isSelected,
+    this.setButtonSelected,
+    this.index,
+  );
 
   void buttonEvent() {
+    //update the selected answer text
     updateSelectedAnswer(answerText);
+    //set button is selected for colour change
     setButtonSelected(index);
   }
 
@@ -23,6 +31,7 @@ class Answer extends StatelessWidget {
         width: double.infinity,
         child: Row(
           children: [
+            //answer button
             Container(
               width: 250.0,
               margin: EdgeInsets.only(right: 5.0),
@@ -34,6 +43,7 @@ class Answer extends StatelessWidget {
                 child: Text(answerText),
               ),
             ),
+            //definition button
             Container(
               width: 40.0,
               height: 25.0,
@@ -44,7 +54,7 @@ class Answer extends StatelessWidget {
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
                     backgroundColor: Colors.purple[100],
-                    contentPadding: EdgeInsets.all( 20.0),
+                    contentPadding: EdgeInsets.all(20.0),
                     title: Text(answerText),
                     content: Text(definitionTxt),
 //                    actions: <Widget>[
@@ -66,6 +76,7 @@ class Answer extends StatelessWidget {
         ));
   }
 
+  //button styles
   final ButtonStyle elevatedButtonStyle = ElevatedButton.styleFrom(
     primary: Colors.white54,
     minimumSize: Size(150, 45),

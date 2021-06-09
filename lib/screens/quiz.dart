@@ -75,6 +75,7 @@ class Quiz extends StatelessWidget {
           setButtonSelected,
           3
         ),
+        //next button with validations
         Align(
             alignment: Alignment.bottomRight,
             child: Container(
@@ -110,6 +111,7 @@ class Quiz extends StatelessWidget {
     );
   }
 
+  //button styles
   final ButtonStyle elevatedButtonStyle = ElevatedButton.styleFrom(
     primary: Colors.white70,
     padding: EdgeInsets.all(15.0),
