@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class Answer extends StatelessWidget {
   final Function updateSelectedAnswer;
   final String answerText;
-  bool  isSelected;
+  final String definitionTxt;
+  bool isSelected;
   Function setButtonSelected;
   int index;
 
-  Answer(this.updateSelectedAnswer, this.answerText, this.isSelected, this.setButtonSelected, this.index);
+  Answer(this.updateSelectedAnswer, this.answerText, this.definitionTxt, this.isSelected,
+      this.setButtonSelected, this.index);
 
   void buttonEvent() {
     updateSelectedAnswer(answerText);
@@ -17,14 +19,51 @@ class Answer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(15.0),
-      width: double.infinity,
-      child: ElevatedButton(
-        style: (isSelected!=true)?elevatedButtonStyle:elevatedSelectedButtonStyle,
-        onPressed: buttonEvent,
-        child: Text(answerText),
-      ),
-    );
+        margin: EdgeInsets.all(15.0),
+        width: double.infinity,
+        child: Row(
+          children: [
+            Container(
+              width: 250.0,
+              margin: EdgeInsets.only(right: 5.0),
+              child: ElevatedButton(
+                style: (isSelected != true)
+                    ? elevatedButtonStyle
+                    : elevatedSelectedButtonStyle,
+                onPressed: buttonEvent,
+                child: Text(answerText),
+              ),
+            ),
+            Container(
+              width: 40.0,
+              height: 25.0,
+              margin: EdgeInsets.only(left: 5.0),
+              child: ElevatedButton(
+                style: elevatedHelpButtonStyle,
+                onPressed: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    backgroundColor: Colors.purple[100],
+                    contentPadding: EdgeInsets.all( 20.0),
+                    title: Text(answerText),
+                    content: Text(definitionTxt),
+//                    actions: <Widget>[
+//                      TextButton(
+//                        onPressed: () => Navigator.pop(context, 'Cancel'),
+//                        child: const Text('Cancel'),
+//                      ),
+//                      TextButton(
+//                        onPressed: () => Navigator.pop(context, 'OK'),
+//                        child: const Text('OK'),
+//                      ),
+//                    ],
+                  ),
+                ),
+                child: Text('?'),
+              ),
+            ),
+          ],
+        ));
   }
 
   final ButtonStyle elevatedButtonStyle = ElevatedButton.styleFrom(
@@ -39,6 +78,14 @@ class Answer extends StatelessWidget {
     primary: Colors.deepPurpleAccent,
     minimumSize: Size(150, 45),
     padding: EdgeInsets.symmetric(horizontal: 16.0),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(25.0)),
+    ),
+  );
+  final ButtonStyle elevatedHelpButtonStyle = ElevatedButton.styleFrom(
+    primary: Colors.white54,
+    minimumSize: Size(150, 45),
+//    padding: EdgeInsets.symmetric(horizontal: 16.0),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(25.0)),
     ),

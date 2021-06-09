@@ -46,6 +46,7 @@ class Quiz extends StatelessWidget {
         Answer(
           updateSelectedAnswer,
           questions[questionIndex].answers[0],
+          questions[questionIndex].definitions[0],
           selection[0],
           setButtonSelected,
           0
@@ -53,6 +54,7 @@ class Quiz extends StatelessWidget {
         Answer(
           updateSelectedAnswer,
           questions[questionIndex].answers[1],
+          questions[questionIndex].definitions[1],
           selection[1],
           setButtonSelected,
           1
@@ -60,6 +62,7 @@ class Quiz extends StatelessWidget {
         Answer(
           updateSelectedAnswer,
           questions[questionIndex].answers[2],
+          questions[questionIndex].definitions[2],
           selection[2],
           setButtonSelected,
           2
@@ -67,6 +70,7 @@ class Quiz extends StatelessWidget {
         Answer(
           updateSelectedAnswer,
           questions[questionIndex].answers[3],
+          questions[questionIndex].definitions[3],
           selection[3],
           setButtonSelected,
           3
