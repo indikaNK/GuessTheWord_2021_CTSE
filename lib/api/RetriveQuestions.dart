@@ -48,7 +48,6 @@ class GetQuestionState extends State<GetQuestion> {
                     .map((DocumentSnapshot document) => Container(
                   margin: const EdgeInsets.only(bottom:32 ),
                       decoration: BoxDecoration(
-                        gradient: ,
                         color: Colors.white54,
                         borderRadius: BorderRadius.all(Radius.circular(20),)
                       ),
