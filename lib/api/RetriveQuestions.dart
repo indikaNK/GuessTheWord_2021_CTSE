@@ -81,7 +81,7 @@ class GetQuestionState extends State<GetQuestion> {
                                         child: ElevatedButton(
                                           style: elevatedButtonStyle,
                                           onPressed: () {
-                                            print('Add new questions pressed');
+                                            print('edit pressed');
                                           },
                                           child: Icon(
                                             Icons.edit_rounded,
@@ -95,7 +95,7 @@ class GetQuestionState extends State<GetQuestion> {
                                         child: ElevatedButton(
                                           style: elevatedButtonStyle,
                                           onPressed: () {
-                                            print('Add new questions pressed');
+                                            print('delete pressed');
                                           },
                                           child: Icon(
                                             Icons.delete_forever,
