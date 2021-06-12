@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:guesstheword/api/question_n_answer_api.dart';
 
 class GetQuestion extends StatefulWidget {
   GetQuestion();
@@ -95,7 +96,8 @@ class GetQuestionState extends State<GetQuestion> {
                                         child: ElevatedButton(
                                           style: elevatedButtonStyle,
                                           onPressed: () {
-                                            print('delete pressed');
+                                            print('delete pressed'+document["qID"].toString());
+                                            deleteFruit(document["qID"]);
                                           },
                                           child: Icon(
                                             Icons.delete_forever,

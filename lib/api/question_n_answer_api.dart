@@ -41,3 +41,31 @@ getQuestions(Function updateQuestionList) async {
     print(e);
   }
 }
+
+//getOneQuestion(int qID, Function func) async {
+//  try {
+//    DocumentReference documentReference = await FirebaseFirestore.instance
+//        .collection('q_n_a')
+//        .doc(qID.toString());
+//    documentReference.get().then((datasnapshot) {
+//      QuestionsAndAnswerModel question = new QuestionsAndAnswerModel(
+//        datasnapshot.get("qID"),
+//        datasnapshot.get("questions"),
+//        datasnapshot.get("answers"),
+//        datasnapshot.get("correctAnswer"),
+//        datasnapshot.get("definitions"),
+//      );
+//
+//      func(question);
+//    });
+//  } catch (e) {
+//    print(e);
+//  }
+//}
+
+deleteFruit(int qID) async {
+  await FirebaseFirestore.instance
+      .collection('q_n_a')
+      .doc(qID.toString())
+      .delete();
+}
