@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:guesstheword/api/question_n_answer_api.dart';
+import 'package:guesstheword/models/QuestionsAndAnswersModel.dart';
+import 'package:guesstheword/screens/UpdateUI.dart';
 
 class GetQuestion extends StatefulWidget {
   GetQuestion();
@@ -13,9 +17,21 @@ class GetQuestion extends StatefulWidget {
 }
 
 class GetQuestionState extends State<GetQuestion> {
-  int index = 0;
+//  int index = 0;
+  QuestionsAndAnswerModel qst;
 
   GetQuestionState();
+
+  getExistData(int qID) async {
+    await getOneQuestion(qID, setQuestionToUpdate);
+  }
+
+  setQuestionToUpdate(QuestionsAndAnswerModel question){
+    print("setSTate");
+    setState(() {
+      qst = question;
+    });
+  }
 
   final CollectionReference questionList =
       FirebaseFirestore.instance.collection("q_n_a");
@@ -55,11 +71,11 @@ class GetQuestionState extends State<GetQuestion> {
                               children: [
                                 Row(
                                   children: [
-                                    Text(
-                                      (++index).toString() + ". ",
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.white),
-                                    ),
+//                                    Text(
+//                                      (++index).toString() + ". ",
+//                                      style: TextStyle(
+//                                          fontSize: 20, color: Colors.white),
+//                                    ),
                                     Container(
                                       width: 260,
                                       child: Text(
@@ -83,6 +99,12 @@ class GetQuestionState extends State<GetQuestion> {
                                           style: elevatedButtonStyle,
                                           onPressed: () {
                                             print('edit pressed');
+                                            getExistData(document["qID"]);
+                                            Timer(Duration(seconds: 3), () {
+                                              Navigator.of(context).push(MaterialPageRoute(
+                                                builder: (context) => UpdateUI(document["qID"],qst),
+                                              ));
+                                            });
                                           },
                                           child: Icon(
                                             Icons.edit_rounded,
