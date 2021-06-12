@@ -4,6 +4,8 @@ import 'package:guesstheword/models/QuestionsAndAnswersModel.dart';
 import 'package:guesstheword/screens/quiz.dart';
 import 'package:guesstheword/screens/results.dart';
 
+import 'Home.dart';
+
 class PlayScreen extends StatefulWidget {
   List<QuestionsAndAnswerModel> questionList;
 
@@ -76,8 +78,16 @@ class _PlayScreenState extends State<PlayScreen> {
     // TODO: implement build
     return Scaffold(
         appBar: AppBar(
-          title: Text("Guess The Word"),
-          backgroundColor: Colors.deepPurple,
+            automaticallyImplyLeading: true,
+            title: Text("Guess The Word"),
+            backgroundColor: Colors.deepPurple,
+            leading: IconButton(icon:Icon(Icons.home),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => HOME(),
+                ));
+              },
+            )
         ),
         body: new Stack(
           children: [

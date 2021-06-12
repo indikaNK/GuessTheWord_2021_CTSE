@@ -67,14 +67,10 @@ class HOME extends StatelessWidget {
                   print("setting icon clicked");
                 },
                 icon: Icon(
-                  Icons.build,
+                  Icons.settings,
                   size: 50,
                   color: Colors.white,
                 ),
-                // icon: Icons.account_tree_outlined,
-                // icon: Icons.app_registration,
-                // icon: Icons.apps_sharp,
-                // icon: Icons.build,
               ),
             ),
           ),

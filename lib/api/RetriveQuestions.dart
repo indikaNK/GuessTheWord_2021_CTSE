@@ -12,14 +12,12 @@ class GetQuestion extends StatefulWidget {
 }
 
 class GetQuestionState extends State<GetQuestion> {
-  GetQuestionState();
-  
-  final CollectionReference questionList = FirebaseFirestore.instance.collection("q_n_a");
+  int index = 0;
 
-  // @override
-  // void initState(){
-  //   super.initState();
-  // }
+  GetQuestionState();
+
+  final CollectionReference questionList =
+      FirebaseFirestore.instance.collection("q_n_a");
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,6 @@ class GetQuestionState extends State<GetQuestion> {
       height: 700,
       child: Container(
         child: StreamBuilder<QuerySnapshot>(
-          // stream: Firestore.instance("q_n_a").snapshots(),
           stream: FirebaseFirestore.instance.collection("q_n_a").snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -43,58 +40,89 @@ class GetQuestionState extends State<GetQuestion> {
             }
 
             return new ListView(
-
                 children: snapshot.data.docs
                     .map((DocumentSnapshot document) => Container(
-                  margin: const EdgeInsets.only(bottom:32 ),
-                      decoration: BoxDecoration(
-                        color: Colors.white54,
-                        borderRadius: BorderRadius.all(Radius.circular(20),)
-                      ),
-                      // width: MediaQuery.of(context).size.width /1.2,
-                      // height: MediaQuery.of(context).size.height / 6,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom:10.0),
-                        child: Column(
-                          children: [
-                            Text("" + document['questions'],style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white
-
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: Colors.white38,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              )),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      (++index).toString() + ". ",
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.white),
+                                    ),
+                                    Container(
+                                      width: 260,
+                                      child: Text(
+                                        "" + document['questions'],
+                                        style: TextStyle(
+                                            fontSize: 20, color: Colors.white),
+                                        maxLines: 3,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    // crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.all(5.0),
+                                        child: ElevatedButton(
+                                          style: elevatedButtonStyle,
+                                          onPressed: () {
+                                            print('Add new questions pressed');
+                                          },
+                                          child: Icon(
+                                            Icons.edit_rounded,
+                                            size: 20,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.all(5.0),
+                                        child: ElevatedButton(
+                                          style: elevatedButtonStyle,
+                                          onPressed: () {
+                                            print('Add new questions pressed');
+                                          },
+                                          child: Icon(
+                                            Icons.delete_forever,
+                                            size: 20,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                // crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  ElevatedButton(onPressed: (){}, child: Text("Edit")),
-                                  SizedBox(width: 5,),
-                                  ElevatedButton(onPressed: (){}, child: Text("Delete"))
-                                ],
-                              ),
-                            ),
-
-                          ],
-                        ),
-                      ),
-                    )).toList()
-            );
-
+                          ),
+                        ))
+                    .toList());
           },
         ),
       ),
-
-
-
-
-
-
-
     );
   }
 
+  final ButtonStyle elevatedButtonStyle = ElevatedButton.styleFrom(
+    primary: Colors.deepPurple,
+    padding: EdgeInsets.all(0.0),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+    ),
+  );
 }
-
-
