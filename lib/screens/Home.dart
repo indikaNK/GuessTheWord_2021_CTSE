@@ -17,37 +17,45 @@ class HOME extends StatelessWidget {
                     image: AssetImage('assets/bodybg.jpg'), fit: BoxFit.cover)),
           ),
           Container(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 200.0),
-                child: CustomButtonRaised(
-                  text: 'PLAY',
-                  onTap: () {
-                    print('play button presesd');
-                    Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => splashscreen()));
-                  },
-                  color: Colors.purple[300],
-                  height: 50,
-                  width: 350,
-                  fontColor: Colors.white,
-                  fontSize: 24,
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 250.0),
+                    child: Text(
+                      "GUESS THE WORD",
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2.5),
+                    ),
+                  ),
                 ),
-              )),
-          Container(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 400.0),
-              child: Text(
-                "GUESS THE WORD",
-                style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2.5),
-              ),
+                Container(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 50.0),
+                      child: CustomButtonRaised(
+                        text: 'PLAY',
+                        onTap: () {
+                          print('play button presesd');
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (context) => splashscreen()));
+                        },
+                        color: Colors.purple[300],
+                        height: 50,
+                        width: 120,
+                        fontColor: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),),
+
+              ],
             ),
           ),
+
           Container(
             alignment: Alignment.topRight,
             child: SafeArea(

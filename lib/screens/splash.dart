@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'InsertUI.dart';
+import 'PlayScreen.dart';
+import 'package:guesstheword/models/QuestionsAndAnswersModel.dart';
+import 'package:guesstheword/api/question_n_answer_api.dart';
 
 class splashscreen extends StatefulWidget {
   @override
@@ -10,12 +13,28 @@ class splashscreen extends StatefulWidget {
 }
 
 class SPlashScreen extends State<splashscreen> {
+
+  List<QuestionsAndAnswerModel> questionList;
+
+  SPlashScreen(){
+    print("game started");
+    getQuestions(updateQuestionList);
+
+  }
+
+  void updateQuestionList(List<QuestionsAndAnswerModel> list) {
+    setState(() {
+      questionList = list;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+
     Timer(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => InsertUI(),
+        builder: (context) => PlayScreen(questionList),
       ));
     });
   }
@@ -31,31 +50,38 @@ class SPlashScreen extends State<splashscreen> {
                   image: AssetImage('assets/bodybg.jpg'), fit: BoxFit.cover)),
         ),
         Container(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: const EdgeInsets.only(top:100.0),
-            child: Text(
-              "Let's Begin !",
-              style: TextStyle(color: Colors.white , fontSize: 45),
-            ),
-          ),
-        ),
-        Container(
           child: Column(
             children: [
-              Center(
+              Container(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top:200.0),
+                        child: SizedBox(
+                          height: 200,
+                          width: 200,
+                          child: Lottie.asset('assets/rocket1.json'),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
                 child: Padding(
-                  padding: const EdgeInsets.only(top:200.0),
-                  child: SizedBox(
-                    height: 200,
-                    width: 200,
-                    child: Lottie.asset('assets/rocket1.json'),
+                  padding: const EdgeInsets.only(top:20.0),
+                  child: Text(
+                    "Let's Begin !",
+                    style: TextStyle(color: Colors.white , fontSize: 45),
                   ),
                 ),
-              )
+              ),
             ],
           ),
-        )
+        ),
+
       ],
     ));
   }
