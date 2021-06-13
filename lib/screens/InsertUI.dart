@@ -23,6 +23,17 @@ class _InsertUIState extends State<InsertUI> {
   String definition3;
   String definition4;
 
+  String questionErrTxt;
+  String answer1ErrTxt;
+  String answer2ErrTxt;
+  String answer3ErrTxt;
+  String answer4ErrTxt;
+  String correctAnswerErrTxt;
+  String definition1ErrTxt;
+  String definition2ErrTxt;
+  String definition3ErrTxt;
+  String definition4ErrTxt;
+
   void getQuestion(String question) {
     setState(() {
       questions = question;
@@ -87,33 +98,128 @@ class _InsertUIState extends State<InsertUI> {
   bool createQuestion() {
     var res = true;
 
-    //generate qid
-    var getRandom = new Random();
-    var qID = 100000 + getRandom.nextInt(999999 - 100000);
+    setState(() {
+      questionErrTxt = null;
+      answer1ErrTxt = null;
+      answer2ErrTxt = null;
+      answer3ErrTxt = null;
+      answer4ErrTxt = null;
+      correctAnswerErrTxt = null;
+      definition1ErrTxt = null;
+      definition2ErrTxt = null;
+      definition3ErrTxt = null;
+      definition4ErrTxt = null;
+    });
 
-    //answer list
-    var answers = [this.answer1, this.answer2, this.answer3, this.answer4];
-
-    //definition list
-    var definitions = [this.definition1, this.definition2, this.definition3, this.definition4];
-
-    try {
-      //create a new Question and Answer object
-      QuestionsAndAnswerModel question = new QuestionsAndAnswerModel(
-        qID,
-        this.questions,
-        answers,
-        this.correctAnswer,
-        definitions,
-      );
-
-      //call create api
-      createNewQuestion(question);
-    } catch (e) {
-      print(e);
+    if (this.questions == null ||
+        this.questions == "" ||
+        this.answer1 == null ||
+        this.answer1 == "" ||
+        this.answer2 == null ||
+        this.answer2 == "" ||
+        this.answer3 == null ||
+        this.answer3 == "" ||
+        this.answer4 == null ||
+        this.answer4 == "" ||
+        this.correctAnswer == null ||
+        this.correctAnswer == "" ||
+        this.definition1 == null ||
+        this.definition1 == "" ||
+        this.definition2 == null ||
+        this.definition2 == "" ||
+        this.definition3 == null ||
+        this.definition3 == "" ||
+        this.definition4 == null ||
+        this.definition4 == "") {
       res = false;
-    }
+      if (this.questions == null || this.questions == "") {
+        setState(() {
+          questionErrTxt = "Question field is required";
+        });
+      }
+      if (this.answer1 == null || this.answer1 == "") {
+        setState(() {
+          answer1ErrTxt = "Answer fields are required";
+        });
+      }
+      if (this.answer2 == null || this.answer2 == "") {
+        setState(() {
+          answer2ErrTxt = "Answer fields are required";
+        });
+      }
+      if (this.answer3 == null || this.answer3 == "") {
+        setState(() {
+          answer3ErrTxt = "Answer fields are required";
+        });
+      }
+      if (this.answer4 == null || this.answer4 == "") {
+        setState(() {
+          answer4ErrTxt = "Answer fields are required";
+        });
+      }
+      if (this.correctAnswer == null || this.correctAnswer == "") {
+        setState(() {
+          correctAnswerErrTxt = "Correct answer field is required";
+        });
+      }
+      if (this.definition1 == null || this.definition1 == "") {
+        setState(() {
+          definition1ErrTxt = "Definitions fields are required";
+        });
+      }
+      if (this.definition2 == null || this.definition2 == "") {
+        setState(() {
+          definition2ErrTxt = "Definitions fields are required";
+        });
+      }
+      if (this.definition3 == null || this.definition3 == "") {
+        setState(() {
+          definition3ErrTxt = "Definitions fields are required";
+        });
+      }
+      if (this.definition4 == null || this.definition4 == "") {
+        setState(() {
+          definition4ErrTxt = "Definitions fields are required";
+        });
+      }
+    }else if(this.correctAnswer!=this.answer1 && this.correctAnswer!=this.answer2 && this.correctAnswer!=this.answer3 && this.correctAnswer!=this.answer4) {
+      res = false;
+      setState(() {
+        correctAnswerErrTxt = "Correct answer is wrong";
+      });
+    }else {
+      //generate qid
+      var getRandom = new Random();
+      var qID = 100000 + getRandom.nextInt(999999 - 100000);
 
+      //answer list
+      var answers = [this.answer1, this.answer2, this.answer3, this.answer4];
+
+      //definition list
+      var definitions = [
+        this.definition1,
+        this.definition2,
+        this.definition3,
+        this.definition4
+      ];
+
+      try {
+        //create a new Question and Answer object
+        QuestionsAndAnswerModel question = new QuestionsAndAnswerModel(
+          qID,
+          this.questions,
+          answers,
+          this.correctAnswer,
+          definitions,
+        );
+
+        //call create api
+        createNewQuestion(question);
+      } catch (e) {
+        print(e);
+        res = false;
+      }
+    }
     return res;
   }
 
@@ -139,16 +245,66 @@ class _InsertUIState extends State<InsertUI> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomTextField('Question', 'Ex: He ____ to school now.', getQuestion),
-                CustomTextField('Answer 1', 'Ex: is going', getAnswer1),
-                CustomDefinitionTextField('Definition', 'Type relevent definition.', getDefinition1),
-                CustomTextField('Answer 2', 'Ex: is going', getAnswer2),
-                CustomDefinitionTextField('Definition', 'Type relevent definition.', getDefinition2),
-                CustomTextField('Answer 3', 'Ex: is going', getAnswer3),
-                CustomDefinitionTextField('Definition', 'Type relevent definition.', getDefinition3),
-                CustomTextField('Answer 4', 'Ex: is going', getAnswer4),
-                CustomDefinitionTextField('Definition', 'Type relevent definition.', getDefinition4),
-                CustomTextField('Correct Answer', 'Ex: is going', getCorrectAnswer),
+                CustomTextField(
+                  'Question',
+                  'Ex: He ____ to school now.',
+                  getQuestion,
+                  this.questionErrTxt,
+                ),
+                CustomTextField(
+                  'Answer 1',
+                  'Ex: is going',
+                  getAnswer1,
+                  this.answer1ErrTxt,
+                ),
+                CustomDefinitionTextField(
+                  'Definition',
+                  'Type relevent definition.',
+                  getDefinition1,
+                  this.definition1ErrTxt,
+                ),
+                CustomTextField(
+                  'Answer 2',
+                  'Ex: is going',
+                  getAnswer2,
+                  this.answer2ErrTxt,
+                ),
+                CustomDefinitionTextField(
+                  'Definition',
+                  'Type relevent definition.',
+                  getDefinition2,
+                  this.definition2ErrTxt,
+                ),
+                CustomTextField(
+                  'Answer 3',
+                  'Ex: is going',
+                  getAnswer3,
+                  this.answer3ErrTxt,
+                ),
+                CustomDefinitionTextField(
+                  'Definition',
+                  'Type relevent definition.',
+                  getDefinition3,
+                  this.definition3ErrTxt,
+                ),
+                CustomTextField(
+                  'Answer 4',
+                  'Ex: is going',
+                  getAnswer4,
+                  this.answer4ErrTxt,
+                ),
+                CustomDefinitionTextField(
+                  'Definition',
+                  'Type relevent definition.',
+                  getDefinition4,
+                  this.definition4ErrTxt,
+                ),
+                CustomTextField(
+                  'Correct Answer',
+                  'Ex: is going',
+                  getCorrectAnswer,
+                  this.correctAnswerErrTxt,
+                ),
                 Container(
                   margin: EdgeInsets.all(15.0),
                   child: ElevatedButton(
