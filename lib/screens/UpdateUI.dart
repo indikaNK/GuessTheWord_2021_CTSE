@@ -5,13 +5,20 @@ import 'package:guesstheword/models/QuestionsAndAnswersModel.dart';
 import 'package:guesstheword/api/question_n_answer_api.dart';
 import 'package:guesstheword/utilities/CustomTextField.dart';
 import 'package:guesstheword/utilities/CustomDefinitionTextField.dart';
+import 'package:guesstheword/utilities/CustomUpdateDefinitionTextField.dart';
+import 'package:guesstheword/utilities/CustomUpdateTextField.dart';
 
-class InsertUI extends StatefulWidget {
+class UpdateUI extends StatefulWidget {
+  int qID;
+  QuestionsAndAnswerModel question;
+
+  UpdateUI(this.qID, this.question);
+
   @override
-  _InsertUIState createState() => _InsertUIState();
+  _UpdateUIState createState() => _UpdateUIState(qID, question);
 }
 
-class _InsertUIState extends State<InsertUI> {
+class _UpdateUIState extends State<UpdateUI> {
   String questions;
   String answer1;
   String answer2;
@@ -22,6 +29,7 @@ class _InsertUIState extends State<InsertUI> {
   String definition2;
   String definition3;
   String definition4;
+  int qID;
 
   String questionErrTxt;
   String answer1ErrTxt;
@@ -33,6 +41,20 @@ class _InsertUIState extends State<InsertUI> {
   String definition2ErrTxt;
   String definition3ErrTxt;
   String definition4ErrTxt;
+
+  _UpdateUIState(int qId, QuestionsAndAnswerModel qst) {
+    qID = qId;
+    questions = qst.questions;
+    answer1 = qst.answers[0];
+    answer2 = qst.answers[1];
+    answer3 = qst.answers[2];
+    answer4 = qst.answers[3];
+    correctAnswer = qst.correctAnswer;
+    definition1 = qst.definitions[0];
+    definition2 = qst.definitions[1];
+    definition3 = qst.definitions[2];
+    definition4 = qst.definitions[3];
+  }
 
   void getQuestion(String question) {
     setState(() {
@@ -95,7 +117,7 @@ class _InsertUIState extends State<InsertUI> {
   }
 
   //create a new question
-  bool createQuestion() {
+  bool updateQuestion() {
     var res = true;
 
     setState(() {
@@ -188,10 +210,6 @@ class _InsertUIState extends State<InsertUI> {
         correctAnswerErrTxt = "Correct answer is wrong";
       });
     }else {
-      //generate qid
-      var getRandom = new Random();
-      var qID = 100000 + getRandom.nextInt(999999 - 100000);
-
       //answer list
       var answers = [this.answer1, this.answer2, this.answer3, this.answer4];
 
@@ -206,7 +224,7 @@ class _InsertUIState extends State<InsertUI> {
       try {
         //create a new Question and Answer object
         QuestionsAndAnswerModel question = new QuestionsAndAnswerModel(
-          qID,
+          this.qID,
           this.questions,
           answers,
           this.correctAnswer,
@@ -236,7 +254,7 @@ class _InsertUIState extends State<InsertUI> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text("Create Question"),
+          title: Text("Update Question"),
           backgroundColor: Colors.deepPurple,
         ),
         body: SingleChildScrollView(
@@ -245,64 +263,74 @@ class _InsertUIState extends State<InsertUI> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomTextField(
+                CustomUpdateTextField(
                   'Question',
                   'Ex: He ____ to school now.',
                   getQuestion,
+                  this.questions,
                   this.questionErrTxt,
                 ),
-                CustomTextField(
+                CustomUpdateTextField(
                   'Answer 1',
                   'Ex: is going',
                   getAnswer1,
+                  this.answer1,
                   this.answer1ErrTxt,
                 ),
-                CustomDefinitionTextField(
+                CustomUpdateDefinitionTextField(
                   'Definition',
                   'Type relevent definition.',
                   getDefinition1,
+                  this.definition1,
                   this.definition1ErrTxt,
                 ),
-                CustomTextField(
+                CustomUpdateTextField(
                   'Answer 2',
                   'Ex: is going',
                   getAnswer2,
+                  this.answer2,
                   this.answer2ErrTxt,
                 ),
-                CustomDefinitionTextField(
+                CustomUpdateDefinitionTextField(
                   'Definition',
                   'Type relevent definition.',
                   getDefinition2,
+                  this.definition2,
                   this.definition2ErrTxt,
                 ),
-                CustomTextField(
+                CustomUpdateTextField(
                   'Answer 3',
                   'Ex: is going',
                   getAnswer3,
+                  this.answer3,
                   this.answer3ErrTxt,
                 ),
-                CustomDefinitionTextField(
+                CustomUpdateDefinitionTextField(
                   'Definition',
                   'Type relevent definition.',
                   getDefinition3,
+                  this.definition3,
                   this.definition3ErrTxt,
                 ),
-                CustomTextField(
+                CustomUpdateTextField(
                   'Answer 4',
                   'Ex: is going',
                   getAnswer4,
+                  this.answer4,
                   this.answer4ErrTxt,
                 ),
-                CustomDefinitionTextField(
+                CustomUpdateDefinitionTextField(
                   'Definition',
                   'Type relevent definition.',
                   getDefinition4,
+                  this.definition4,
                   this.definition4ErrTxt,
                 ),
-                CustomTextField(
+                CustomUpdateTextField(
                   'Correct Answer',
                   'Ex: is going',
                   getCorrectAnswer,
+                  this.correctAnswer,
                   this.correctAnswerErrTxt,
                 ),
                 Container(
@@ -310,11 +338,11 @@ class _InsertUIState extends State<InsertUI> {
                   child: ElevatedButton(
                     style: elevatedButtonStyle,
                     onPressed: () {
-                      var res = createQuestion();
+                      var res = updateQuestion();
                       SnackBar snackBar;
                       if (res) {
                         snackBar = SnackBar(
-                            content: Text('Successfully created!'),
+                            content: Text('Successfully updated!'),
                             backgroundColor: Colors.green);
                       } else {
                         snackBar = SnackBar(
@@ -324,7 +352,7 @@ class _InsertUIState extends State<InsertUI> {
 
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
-                    child: Text('CREATE'),
+                    child: Text('UPDATE'),
                   ),
                 )
               ],

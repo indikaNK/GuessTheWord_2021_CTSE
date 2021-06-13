@@ -4,8 +4,9 @@ class CustomTextField extends StatelessWidget {
   String label;
   String hint;
   Function getText;
+  String err;
 
-  CustomTextField(this.label, this.hint, this.getText);
+  CustomTextField(this.label, this.hint, this.getText, this.err);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class CustomTextField extends StatelessWidget {
           fillColor: Colors.white,
           labelText: this.label,
           hintText: this.hint,
+          errorText: this.err,
         ),
         onChanged: (txt) {
           getText(txt);

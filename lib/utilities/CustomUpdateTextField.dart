@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CustomDefinitionTextField extends StatelessWidget {
+class CustomUpdateTextField extends StatelessWidget {
   String label;
   String hint;
   Function getText;
+  String initVal;
   String err;
 
-  CustomDefinitionTextField(this.label, this.hint, this.getText, this.err);
+  CustomUpdateTextField(this.label, this.hint, this.getText, this.initVal, this.err);
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +17,17 @@ class CustomDefinitionTextField extends StatelessWidget {
         decoration: InputDecoration(
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25)),
-          contentPadding: EdgeInsets.only(left: 25.0,top: 15.0),
+          contentPadding: EdgeInsets.only(left: 25.0),
           filled: true,
           fillColor: Colors.white,
           labelText: this.label,
           hintText: this.hint,
           errorText: this.err,
         ),
+        initialValue: initVal,
         onChanged: (txt) {
           getText(txt);
         },
-        maxLines: 3,
       ),
     );
   }

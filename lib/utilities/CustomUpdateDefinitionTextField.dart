@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CustomDefinitionTextField extends StatelessWidget {
+class CustomUpdateDefinitionTextField extends StatelessWidget {
   String label;
   String hint;
   Function getText;
+  String initVal;
   String err;
 
-  CustomDefinitionTextField(this.label, this.hint, this.getText, this.err);
+  CustomUpdateDefinitionTextField(this.label, this.hint, this.getText, this.initVal, this.err);
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class CustomDefinitionTextField extends StatelessWidget {
           hintText: this.hint,
           errorText: this.err,
         ),
+        initialValue: initVal,
         onChanged: (txt) {
           getText(txt);
         },

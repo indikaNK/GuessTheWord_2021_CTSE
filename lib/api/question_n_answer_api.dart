@@ -29,15 +29,35 @@ getQuestions(Function updateQuestionList) async {
     });
 
     updateQuestionList(_questionsList);
-//    _questionsList.forEach((question) => {
-//          print('************'),
-//          print(question.qID),
-//          print(question.questions),
-//          print(question.correctAnswer),
-//          print(question.answers[0]),
-//          print(question.definitions[0]),
-//        });
   } catch (e) {
     print(e);
   }
+}
+
+getOneQuestion(int qID, Function func) async {
+  try {
+    DocumentReference documentReference = await FirebaseFirestore.instance
+        .collection('q_n_a')
+        .doc(qID.toString());
+    documentReference.get().then((datasnapshot) {
+      QuestionsAndAnswerModel question = new QuestionsAndAnswerModel(
+        datasnapshot.get("qID"),
+        datasnapshot.get("questions"),
+        datasnapshot.get("answers"),
+        datasnapshot.get("correct_answer"),
+        datasnapshot.get("definitions"),
+      );
+      print("api--> "+question.questions);
+      func(question);
+    });
+  } catch (e) {
+    print(e);
+  }
+}
+
+deleteFruit(int qID) async {
+  await FirebaseFirestore.instance
+      .collection('q_n_a')
+      .doc(qID.toString())
+      .delete();
 }
