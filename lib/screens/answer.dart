@@ -57,16 +57,6 @@ class Answer extends StatelessWidget {
                     contentPadding: EdgeInsets.all(20.0),
                     title: Text(answerText),
                     content: Text(definitionTxt),
-//                    actions: <Widget>[
-//                      TextButton(
-//                        onPressed: () => Navigator.pop(context, 'Cancel'),
-//                        child: const Text('Cancel'),
-//                      ),
-//                      TextButton(
-//                        onPressed: () => Navigator.pop(context, 'OK'),
-//                        child: const Text('OK'),
-//                      ),
-//                    ],
                   ),
                 ),
                 child: Text('?'),

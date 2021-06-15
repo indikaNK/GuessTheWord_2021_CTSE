@@ -7,21 +7,6 @@ class Results extends StatelessWidget {
 
   Results(this.resultSCore, this.restartQuiz, this.totQuestions);
 
-  String get resultPhrase {
-    String resultText;
-
-    if (resultSCore <= 10) {
-      resultText = 'you are awesome!';
-    } else if (resultSCore <= 14) {
-      resultText = 'you are okay!';
-    } else if (resultSCore <= 18) {
-      resultText = 'you are strange!';
-    } else {
-      resultText = 'you are so bad!';
-    }
-    return resultText;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(

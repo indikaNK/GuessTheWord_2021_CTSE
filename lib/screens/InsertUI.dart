@@ -185,7 +185,7 @@ class _InsertUIState extends State<InsertUI> {
     }else if(this.correctAnswer!=this.answer1 && this.correctAnswer!=this.answer2 && this.correctAnswer!=this.answer3 && this.correctAnswer!=this.answer4) {
       res = false;
       setState(() {
-        correctAnswerErrTxt = "Correct answer is wrong";
+        correctAnswerErrTxt = "Please enter a valid answer";
       });
     }else {
       //generate qid

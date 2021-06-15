@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'InsertUI.dart';
 import 'PlayScreen.dart';
 import 'package:guesstheword/models/QuestionsAndAnswersModel.dart';
 import 'package:guesstheword/api/question_n_answer_api.dart';

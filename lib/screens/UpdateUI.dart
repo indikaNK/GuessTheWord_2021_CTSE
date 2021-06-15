@@ -1,10 +1,7 @@
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:guesstheword/models/QuestionsAndAnswersModel.dart';
 import 'package:guesstheword/api/question_n_answer_api.dart';
-import 'package:guesstheword/utilities/CustomTextField.dart';
-import 'package:guesstheword/utilities/CustomDefinitionTextField.dart';
 import 'package:guesstheword/utilities/CustomUpdateDefinitionTextField.dart';
 import 'package:guesstheword/utilities/CustomUpdateTextField.dart';
 
@@ -207,7 +204,7 @@ class _UpdateUIState extends State<UpdateUI> {
     }else if(this.correctAnswer!=this.answer1 && this.correctAnswer!=this.answer2 && this.correctAnswer!=this.answer3 && this.correctAnswer!=this.answer4) {
       res = false;
       setState(() {
-        correctAnswerErrTxt = "Correct answer is wrong";
+        correctAnswerErrTxt = "Please enter a valid answer";
       });
     }else {
       //answer list
