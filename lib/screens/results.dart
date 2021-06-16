@@ -15,7 +15,7 @@ class Results extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
           Text(
-            "Final Resalts",
+            "Final Results",
             style: TextStyle(color:Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),

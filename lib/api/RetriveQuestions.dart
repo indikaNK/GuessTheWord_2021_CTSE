@@ -117,10 +117,30 @@ class GetQuestionState extends State<GetQuestion> {
                                         margin: EdgeInsets.all(5.0),
                                         child: ElevatedButton(
                                           style: elevatedButtonStyle,
-                                          onPressed: () {
-                                            print('delete pressed'+document["qID"].toString());
-                                            deleteFruit(document["qID"]);
-                                          },
+//                                          onPressed: () {
+//                                            print('delete pressed'+document["qID"].toString());
+//                                            deleteFruit(document["qID"]);
+//                                          },
+                                          onPressed: () => showDialog<String>(
+                                            context: context,
+                                            builder: (BuildContext context) => AlertDialog(
+                                              title: const Text('Do you want to remove this question?'),
+//                                              content: const Text('AlertDialog description'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () {
+                                                    deleteFruit(document["qID"]);
+                                                    Navigator.pop(context, 'OK');
+                                                  },
+                                                  child: const Text('Yes'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                                                  child: const Text('No'),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                           child: Icon(
                                             Icons.delete_forever,
                                             size: 20,
